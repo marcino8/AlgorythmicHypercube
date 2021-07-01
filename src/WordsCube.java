@@ -1,8 +1,15 @@
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
+import org.apache.poi.hdf.extractor.WordDocument;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
+
+
 
 public class WordsCube {
     public static long wordCount(String word, String textToSearch) {
@@ -27,4 +34,13 @@ public class WordsCube {
                 .collect(Collectors.joining());
     }
 
+    public static void wordDocsImport() {
+        try {
+            HWPFDocument hwpfDocument = new HWPFDocument(new FileInputStream("SampleData/Hello.doc"));
+            WordExtractor extractor= new WordExtractor(hwpfDocument);
+            System.out.println(extractor.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
